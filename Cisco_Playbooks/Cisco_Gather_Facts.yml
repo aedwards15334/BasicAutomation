@@ -1,0 +1,39 @@
+- name: Gather IOS Facts
+  hosts: routers:&ios_router
+  connection: ansible.netcommon.network_cli
+#the following gather_facts is Ansible facts about hosts
+#we want to use Cisco.ios.ios_facts to parse Cisco 
+#specific facts.  Hence the Ansible facts is ‘no’.
+  gather_facts: no
+
+  tasks:
+    - name: get IOS facts
+      cisco.ios.ios_facts:
+        gather_subset: all
+
+# UNCOMMENT debug to print to stdout what is returned
+#    - debug:
+#        msg: "{{ ansible_facts }}"
+
+## CREATE IOS FACTS SECTION ##
+# Create RAW JSON file with Ansible facts #
+    - name: Create RAW JSON file
+      copy:
+        content: |
+          {{ ansible_facts }}
+        dest: /root/facts/{{ inventory_hostname }}_IOS_FACTS_RAW.json
+
+# Create JSON file with Ansible Facts #
+    - name: Create raw JSON file
+      copy:
+        content: |
+          {{ ansible_facts | to_nice_json }}
+        dest: /root/facts/{{ inventory_hostname }}_IOS_Facts_Nice.json
+
+# Create YAML file with Ansible Facts #
+    - name: Create raw YAML
+      copy:
+        content: |
+          {{ ansible_facts | to_nice_yaml }}
+        dest: /root/facts/{{ inventory_hostname }}_IOS_Facts.yml
+

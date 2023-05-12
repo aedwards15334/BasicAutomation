@@ -1,0 +1,21 @@
+- name: configure cisco routers
+  hosts: routers:&ios_router:!R3
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+  vars:
+    dns: "8.8.4.4"
+    hostname: "NEWNAME1"
+
+  tasks:
+    - name: configure hostname
+      cisco.ios.ios_config:
+       lines: hostname {{inventory_hostname}}_{{ hostname }}
+
+    - name: Remove Name Server
+      cisco.ios.ios_config:
+       lines: no ip name-server
+
+    - name: Configure Name Server
+      cisco.ios.ios_config:
+       lines: ip name-server {{ dns }}
+

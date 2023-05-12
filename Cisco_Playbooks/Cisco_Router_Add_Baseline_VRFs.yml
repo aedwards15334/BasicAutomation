@@ -1,0 +1,20 @@
+- name: configure cisco routers
+  hosts: routers:&ios_router:&R1
+  connection: ansible.netcommon.network_cli
+  gather_facts: no
+
+  tasks:
+    - name: enable scp server and disable file copy confirmation
+      cisco.ios.ios_config:
+        lines:
+          - ip scp server enable
+          - file prompt quiet
+
+    - name: Initiate SCP from R1; get file from R2 via SCP to R1 bootflash:/R2_COPIED_FILE.log
+      cisco.ios.ios_command:
+        commands: 'copy scp://cisco:cisco@192.168.122.253//bootflash:/R2_TEST_FILE.log bootflash:/R2_COPIED_FILE.log vrf management'
+
+    - name: Verify Checksum MD5
+      cisco.ios.ios_command:
+        commands: "verify /md5 bootflash:/R2_COPIED_FILE.log efe72529349057b5bf0e990d56c340a8"
+

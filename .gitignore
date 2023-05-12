@@ -1,0 +1,8 @@
+.bashrc
+.ssh
+.cache/pip
+.gns3_perms
+.gitconfig
+.profile
+.python_history
+.viminfo

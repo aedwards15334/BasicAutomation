@@ -1,0 +1,61 @@
+all:
+  children:
+    routers:
+      children:
+        ios_router:
+          vars:
+            ansible_become: 'yes'
+            ansible_become_method: 'enable'
+            ansible_network_os: 'cisco.ios.ios'
+            ansible_user: 'cisco'
+            ansible_password: 'cisco'
+
+          hosts:
+            R1:
+            R2:
+            R3:
+        
+        eos_router :
+          vars:
+            ansible_become: 'yes'
+            ansible_become_method: 'enable'
+            ansible_network_os: 'ansible.eos.eos'
+            ansible_user: 'ansible'
+            ansible_password: 'ansible'
+
+          hosts:
+            R4:
+        
+        vyos_router :
+          vars:
+            ansible_netowrk_os: 'vyos.vyos.vyos'
+            ansible_user: 'vyos'
+            ansible_password: 'vyos'
+
+          hosts:
+            R5:
+
+    switches:
+      children:
+        ios_switch:
+          vars:
+            ansible_become: 'yes'
+            ansible_become_method: 'enable'
+            ansible_network_os: 'cisco.ios.ios'
+            ansible_user: 'cisco'
+            ansible_password: 'cisco'
+
+          hosts:
+            SW1:
+        
+        eos_switch:
+          vars:
+            ansible_become: 'yes'
+            ansible_become_method: 'enable'
+            ansible_network_os: 'ansible.eos.eos'
+            ansible_user: 'ansible'
+            ansible_password: 'ansible'
+
+          hosts:
+            SW2:
+
