@@ -1,8 +1,10 @@
-Basic Automation with Ansible This repo should be looked at through the lens of time and software versions.
+Basic Automation with Ansible:
+
+This repo should be looked at through the lens of time with consideration to software versions.
 
 This will help you avoid frustration if somthing doesn't work.
 
-I created the repo 5/12/23 with the following baseline software versions:
+I created the repo 5/12/2023 with the following baseline software versions:
 
 GNS3 2.2.28 VM and Desktop 
 
